@@ -30,7 +30,7 @@ resource "aws_s3_bucket_public_access_block" "nextjs_bucket_public_access_block"
 resource "aws_s3_bucket_acl" "nextjs_bucket_acl" {
 
   depends_on = [
-    aws_s3_bucket_ownership_controls.nextjs_bucket_ownership_controls,
+    aws_s3_bucket_ownership_controls.nextjs_bucket_ownership_control,
     aws_s3_bucket_public_access_block.nextjs_bucket_public_access_block
   ]
 
@@ -83,7 +83,7 @@ resource "aws_cloudfront_distribution" "nextjs_distribution" {
   default_cache_behavior {
     allowed_methods        = ["GET", "HEAD", "OPTIONS"]
     cached_methods         = ["GET", "HEAD"]
-    target_origin_id       = "S3-${aws_s3_bucket.nextjs_bucket.id}"
+    target_origin_id       = "S3-nextjs-portfolio-bucket-tuttle"
     viewer_protocol_policy = "redirect-to-https"
     min_ttl                = 0
     default_ttl            = 3600
